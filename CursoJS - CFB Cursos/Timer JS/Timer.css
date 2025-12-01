@@ -10,7 +10,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 300px;
+    width: 350px;
     background-color: #eee;
     padding: 10px;
     border-radius: 5px;
@@ -30,20 +30,51 @@
     border-radius: 5px;
 }
 
+.def_alarme {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 300px;
+    margin: auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.def_timers {
+    display: flex;
+    justify-content: space-between;
+}
+
+.time_container {
+    display: flex;
+    flex-flow: column nowrap;
+    ;
+}
+
 input[type='number'] {
     border: 1px solid #000;
     font-size: larger;
     cursor: pointer;
     border-radius: 5px;
     padding: 5px;
+    width: 80px;
 }
 
 button {
-    background-color: #aaa;
-    padding: 10px 20px;
-    margin: 5px;
-    border-radius: 5px;
+    background-color: #cccbcb;
+    border: 3px solid #888;
+    font-weight: bold;
+    width: 60px;
+    height: 40px;
     cursor: pointer;
+    border-radius: 12px;
+    margin: 1px;
+}
+
+button:active {
+    background-color: color-mix(in srgb, #aaa 95%, rgba(255, 255, 255, 0.144)) !important;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.493) !important;
+    transform: translateY(1px);
+    transition: all 0.02s ease-in-out;
 }
 
 .alarme {
