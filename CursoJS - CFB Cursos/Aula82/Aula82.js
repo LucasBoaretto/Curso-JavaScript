@@ -24,10 +24,54 @@ class Bola {
         this.palco = palco;
         this.arrayBolas = arrayBolas;
         this.id = Date.now() + "_" + Math.floor(Math.random() * 100000000000);
+        this.desenhar();
+        this.controle = setInterval(this.controlar, 10);
+        this.eu = document.getElementById(this.id);
+        numBolas++;
+        num_objetos.innerHTML = numBolas;
     }
-    Criar() { }
-    Adicionar() { }
-    Remover() { }
+    desenhar = () => {
+        const div = document.createElement("div");
+        div.setAttribute("id", this.id);
+        div.setAttribute("class", "bola");
+        div.setAttribute("style", `left:${this.px}px;top:${this.py}px;width:${this.tamanho}px;height:${this.tamanho}px;background-color: rgb(${this.r},${this.g},${this.b})`);
+        this.palco.appendChild(div);
+    }
+    minhaPos = () => {
+        return this.bolas.indexOf(this);
+    }
+    remover = () => {
+        clearInterval(this.controle);
+        bolas = bolas.filter((b) => {
+            if (b.id != this.id) {
+                return b;
+            }
+        })
+        this.eu.remove();
+        numBolas--;
+        num_objetos.innerHTML = numBolas;
+    }
+    controle_bordas = () => {
+        if (this.px + this.tamanho >= larguraPalco) {
+            this.direcaoX = -1;
+        } else if (this.px <= 0) {
+            this.direcaoX = 1;
+        }
+        if (this.py + this.tamanho >= alturaPalco) {
+            this.direcaoY = -1;
+        } else if (this.py <= 0) {
+            this.direcaoY = 1;
+        }
+    }
+    controlar = () => {
+        this.controle_bordas();
+        this.px += this.direcaoX * this.velocidadeX;
+        this.py += this.direcaoY * this.velocidadeY;
+        this.eu.setAttribute("style", `left:${this.px}px;top:${this.py}px;width:${this.tamanho}px;height:${this.tamanho}px;background-color: rgb(${this.r},${this.g},${this.b})`);
+        if (this.px > larguraPalco || this.py > alturaPalco) {
+            this.remover();
+        }
+    }
 }
 
 window.addEventListener("resize", (e) => {
@@ -38,10 +82,12 @@ btn_add.addEventListener("click", (e) => {
     const qtde = txt_qtde.value;
     for (let i = 0; i < qtde; i++) {
         // Criar as bolinhas
+        bolas.push(new Bola(bolas, palco));
     }
 })
 btn_remover.addEventListener("click", (e) => {
     bolas.map((b) => {
         // Remover bolinha
+        b.remover();
     })
 })
